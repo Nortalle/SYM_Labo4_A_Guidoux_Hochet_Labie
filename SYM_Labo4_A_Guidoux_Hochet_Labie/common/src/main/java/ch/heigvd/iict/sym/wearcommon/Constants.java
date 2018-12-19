@@ -8,7 +8,11 @@ package ch.heigvd.iict.sym.wearcommon;
 
 public class Constants {
 
+
     public static final String MY_PENDING_INTENT_ACTION = "ch.heigvd.iict.sym.sym_labo4/MY_MESSAGE";
+    public static final String MY_PENDING_INTENT_ACTION_SIMPLE = "ch.heigvd.iict.sym.sym_labo4/MY_MESSAGE_SIMPLE";
+    public static final String MY_PENDING_INTENT_ACTION_ACTIONS = "ch.heigvd.iict.sym.sym_labo4/MY_MESSAGE_ACTIONS";
+    public static final String MY_PENDING_INTENT_ACTION_WEARABLE = "ch.heigvd.iict.sym.sym_labo4/MY_MESSAGE_WEARABLE";
 
     // MAY BE USED TO STORE CONSTANTS SHARED BY THE 2 APPLICATIONS
 

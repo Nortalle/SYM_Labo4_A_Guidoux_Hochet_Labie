@@ -4,10 +4,16 @@
     <string name="main_btn_notification">Notification</string>
     <string name="main_btn_application">Application</string>
 
-    <string name="notification_btn_display_notification">Show notification</string>
+    <string name="btn_display_simple_notification">Show simple notification</string>
+    <string name="btn_display_actions_notification">Show actions notification</string>
+    <string name="btn_display_wearable_notification">Show wearable notification</string>
     <string name="channel_name">labo4</string>
     <string name="channel_description">channel nécessaire pour le labo4</string>
     <string name="ic_simple_notification_title">wearBiking</string>
     <string name="ic_simple_notification_description">Votre trajet a été modifié</string>
+    <string name="ic_actions_notification_title">iForgot</string>
+    <string name="ic_actions_notification_description">Avec-vous oublié vos clés ?</string>
+    <string name="ic_wearable_notification_title">iRun</string>
+    <string name="ic_wearable_notification_description">Voulez-vous continuer à courrir ?</string>
 
 </resources>
