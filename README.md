@@ -3,7 +3,6 @@
 ## Questions à poser :
 
 - Les `Button`sont souvent utilisés uniquement dans la méthode `onCreate()`, est-ce une bonne pratique de les mettre comme attribut de classe ou ils peuvent être _local_ ?
-- Comment fonctionne la constante `MY_PENDING_INTENT_ACTION = "ch.heigvd.iict.sym.sym_labo4/MY_MESSAGE"` !?!?
 
 ##Faire fonctionner les notifications
 
