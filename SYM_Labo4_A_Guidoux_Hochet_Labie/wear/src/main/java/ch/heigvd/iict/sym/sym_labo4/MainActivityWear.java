@@ -37,6 +37,8 @@ public class MainActivityWear extends WearableActivity implements
         this.redSlider.setOnSliderRangeMovedListener(this);
         this.greenSlider.setOnSliderRangeMovedListener(this);
         this.blueSlider.setOnSliderRangeMovedListener(this);
+
+        updateBackgroundColor();
     }
 
     @Override
@@ -61,17 +63,20 @@ public class MainActivityWear extends WearableActivity implements
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
         } else {
-            int r = 0, g = 0, b = 0; //use real color...
+            int r = convertEndAngleToRGBComponent(redSlider.getEndAngle());
+            int g = convertEndAngleToRGBComponent(greenSlider.getEndAngle());
+            int b = convertEndAngleToRGBComponent(blueSlider.getEndAngle());
             mContainerView.setBackgroundColor(Color.argb(255, r,g,b));
         }
     }
 
-    @Override public void onStartSliderMoved(double pos) { /* NOTHING TO DO */ }
-    @Override public void onEndSliderMoved(double pos) { /* NOTHING TO DO */ }
-    @Override public void onStartSliderEvent(ThumbEvent event) { /* NOTHING TO DO */ }
+    @Override public void onStartSliderMoved(double pos) {updateBackgroundColor(); /* NOTHING TO DO */ }
+    @Override public void onEndSliderMoved(double pos) {updateBackgroundColor(); /* NOTHING TO DO */ }
+    @Override public void onStartSliderEvent(ThumbEvent event) {updateBackgroundColor(); /* NOTHING TO DO */ }
     @Override public void onEndSliderEvent(ThumbEvent event) {
-        //one of the slider was moved
-        //DO SOMETHING
+
+        updateBackgroundColor();
+
     }
 
     /**
