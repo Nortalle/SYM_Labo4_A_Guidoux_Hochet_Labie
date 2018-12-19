@@ -1,5 +1,20 @@
+/*
+ * File         : BeaconActivity.java
+ * Project      : SYM_Labo3
+ * Authors      : Hochet Guillaume 16 décembre 2018
+ *                Labie Marc 16 décembre 2018
+ *                Guidoux Vincent 16 décembre 2018
+ *
+ * Description  : list the various iBeacons nearby. You will see for each the rssi (strength of the
+ *                received signal), the major number and the minor number in an activity. The
+ *                displayed list is updated regularly.
+ *
+ * Sources      : https://developer.android.com/training/wearables/notifications/creating
+ *                https://developer.android.com/training/notify-user/channels
+ */
 package ch.heigvd.iict.sym.sym_labo4;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,7 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private static final int NOTIFICATION_ID = 1; //code to use for the notification id
     private static final int SIMPLE_NOTIFICATION_ID = 1234;
-    private static final String CHANNEL_ID = "labo4";
+    private static final String CHANNEL_ID = "labo41";
 
     private Button notificationBtnDisplayNotification;
 
@@ -33,10 +48,10 @@ public class NotificationActivity extends AppCompatActivity {
             onNewIntent(getIntent());
 
         notificationBtnDisplayNotification = findViewById(R.id.notification_btn_display_notification);
+
         createNotificationChannel();
-        notificationBtnDisplayNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        notificationBtnDisplayNotification.setOnClickListener(v -> {
 
                 // Build intent for notification content
                 PendingIntent viewPendingIntent = createPendingIntent(SIMPLE_NOTIFICATION_ID, "Des travaux se trouvent sur votre trajet");
@@ -48,16 +63,17 @@ public class NotificationActivity extends AppCompatActivity {
                                 .setSmallIcon(R.drawable.ic_directions_bike_black_18dp)
                                 .setContentTitle(getString(R.string.ic_simple_notification_title))
                                 .setContentText(getString(R.string.ic_simple_notification_description))
+                                .setAutoCancel(true)
                                 .setContentIntent(viewPendingIntent);
+
                 // Get an instance of the NotificationManager service
                 NotificationManagerCompat notificationManager =
                         NotificationManagerCompat.from(getApplicationContext());
 
                 // Issue the notification with notification manager.
                 notificationManager.notify(SIMPLE_NOTIFICATION_ID, notificationBuilder.build());
-            }
-        });
 
+        });
     }
 
     /* A IMPLEMENTER */
@@ -115,7 +131,9 @@ public class NotificationActivity extends AppCompatActivity {
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
         }
     }
 
