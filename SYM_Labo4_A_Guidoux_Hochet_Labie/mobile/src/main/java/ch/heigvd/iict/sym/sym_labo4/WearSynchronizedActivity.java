@@ -72,6 +72,16 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
         View rootView = findViewById(android.R.id.content);
         rootView.setBackgroundColor(Color.argb(255, r, g, b));
 
+
+
+    }
+
+    private void sendPayload() {
+
+        int r = redSlider.getProgress();
+        int g = greenSlider.getProgress();
+        int b = blueSlider.getProgress();
+
         //Send payload to the layer API
         PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(Constants.DATA);
         putDataMapRequest.getDataMap().putInt(Constants.RED, r);
@@ -84,7 +94,6 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
         Log.w(TAG, "DataItem saved: " + request.toString());
 
         Wearable.getDataClient(getApplicationContext()).putDataItem(request);
-
     }
 
     @Override
@@ -102,17 +111,18 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        //updateBackgroundColor();
+        updateBackgroundColor();
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        //updateBackgroundColor();
+        /* NOTHING TO DO */
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        updateBackgroundColor();
+
+        sendPayload();
     }
 
     /*

@@ -101,24 +101,25 @@ public class MainActivityWear extends WearableActivity implements
 
     @Override
     public void onStartSliderMoved(double pos) {
-        //updateBackgroundColor(); /* NOTHING TO DO */
+        /* NOTHING TO DO */
     }
 
     @Override
     public void onEndSliderMoved(double pos) {
-        //updateBackgroundColor(); /* NOTHING TO DO */
+        updateBackgroundColor();
     }
 
     @Override
     public void onStartSliderEvent(ThumbEvent event) {
-        //updateBackgroundColor(); /* NOTHING TO DO */
+        /* NOTHING TO DO */
     }
 
     @Override
     public void onEndSliderEvent(ThumbEvent event) {
+        sendPayload();
+    }
 
-        updateBackgroundColor();
-
+    private void sendPayload() {
 
         int r = convertEndAngleToRGBComponent(redSlider.getEndAngle());
         int g = convertEndAngleToRGBComponent(greenSlider.getEndAngle());
@@ -136,7 +137,6 @@ public class MainActivityWear extends WearableActivity implements
         Log.w(TAG, "DataItem saved: " + request.toString());
 
         Wearable.getDataClient(getApplicationContext()).putDataItem(request);
-
     }
 
     /**
@@ -180,7 +180,6 @@ public class MainActivityWear extends WearableActivity implements
                     redSlider.setEndAngle(r);
                     greenSlider.setEndAngle(g);
                     blueSlider.setEndAngle(b);
-
                     updateBackgroundColor();
                 }
             }
