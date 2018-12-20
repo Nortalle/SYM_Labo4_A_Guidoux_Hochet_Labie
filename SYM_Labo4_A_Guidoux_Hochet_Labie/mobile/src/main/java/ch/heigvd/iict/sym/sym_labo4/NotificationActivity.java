@@ -1,13 +1,11 @@
 /*
- * File         : BeaconActivity.java
- * Project      : SYM_Labo3
- * Authors      : Hochet Guillaume 16 décembre 2018
- *                Labie Marc 16 décembre 2018
- *                Guidoux Vincent 16 décembre 2018
+ * File         : NotificationActivity.java
+ * Project      : SYM_Labo4_A_Guidoux_Hochet_Labie
+ * Authors      : Hochet Guillaume 20 janvier 2019
+ *                Labie Marc 20 janvier 2019
+ *                Guidoux Vincent 20 janvier 2019
  *
- * Description  : list the various iBeacons nearby. You will see for each the rssi (strength of the
- *                received signal), the major number and the minor number in an activity. The
- *                displayed list is updated regularly.
+ * Description  :
  *
  * Sources      : https://developer.android.com/training/wearables/notifications/creating
  *                https://developer.android.com/training/notify-user/channels
@@ -27,14 +25,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ch.heigvd.iict.sym.wearcommon.Constants;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    private static final String CHANNEL_ID = "labo41";
+    private static final String CHANNEL_ID = "labo4";
+
+    private static final String EMOJI_EMMERGENCY = "\uD83D\uDE91";
+    private static final String EMOJI_OUPS = "\uD83D\uDE44";
 
     private static final int SIMPLE_NOTIFICATION_ID = 1234;
 
@@ -92,13 +90,13 @@ public class NotificationActivity extends AppCompatActivity {
         notificationBtnDisplayActionsNotification.setOnClickListener(v -> {
 
             // Build intent for notification content
-            PendingIntent oui = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_YES, "OUI");
-            PendingIntent non = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_NO, "NON");
-            PendingIntent pe = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_MAYBE, "\uD83D\uDE44");
+            PendingIntent oui = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_YES, "regardez dans votre jeans, dans la machine à laver");
+            PendingIntent non = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_NO, "Bravo !!");
+            PendingIntent pe = createPendingIntentActions(ACTIONS_NOTIFICATION_ID_MAYBE, "Ah ça je savais !");
 
-            NotificationCompat.Action ouiAc = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "OUI", oui);
-            NotificationCompat.Action nonAc = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "NON", non);
-            NotificationCompat.Action peAc = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "\uD83D\uDE44", pe);
+            NotificationCompat.Action ouiAc = new NotificationCompat.Action(R.drawable.ic_search_black_18dp, "OUI", oui);
+            NotificationCompat.Action nonAc = new NotificationCompat.Action(R.drawable.ic_key_black_18dp, "NON", non);
+            NotificationCompat.Action peAc = new NotificationCompat.Action(R.drawable.ic_oups_black_18dp, EMOJI_OUPS, pe);
             // Notification channel ID is ignored for Android 7.1.1
             // (API level 25) and lower.
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
@@ -121,26 +119,23 @@ public class NotificationActivity extends AppCompatActivity {
             // Build intent for notification content
             PendingIntent continueIntent = createPendingIntentWearable(WEARABLE_NOTIFICATION_ID_CONTINUE, "D'accord on continue ! 40km on été ajouté à votre course");
             PendingIntent finishIntent = createPendingIntentWearable(WEARABLE_NOTIFICATION_ID_FINISH, "Chemin le plus court pour la maison en cours de calcul");
-            PendingIntent callIntent = createPendingIntentWearable(WEARABLE_NOTIFICATION_ID_CALL, "On appelle l'ambulance");
+            PendingIntent callIntent = createPendingIntentWearable(WEARABLE_NOTIFICATION_ID_CALL, EMOJI_EMMERGENCY);
 
-            NotificationCompat.Action continueAction = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "Continuez", continueIntent);
-            NotificationCompat.Action finishAction = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "FINIR !!", finishIntent);
-            NotificationCompat.Action callAction = new NotificationCompat.Action(R.drawable.ic_lightbulb_on_black_18dp, "Appeler une ambulance", callIntent);
-
-            List<NotificationCompat.Action> actions = new ArrayList<>();
-            actions.add(continueAction);
-            actions.add(finishAction);
-            actions.add(callAction);
-
-            NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender().addActions(actions);
+            // Build action for notification action
+            NotificationCompat.Action continueAction = new NotificationCompat.Action(R.drawable.ic_directions_runner_black_18p, "Continuez", continueIntent);
+            NotificationCompat.Action finishAction = new NotificationCompat.Action(R.drawable.ic_alert_stop_black_18p, "FINIR !!", finishIntent);
+            NotificationCompat.Action callAction = new NotificationCompat.Action(R.drawable.ic_alert_emergency_black_18p, "Appeler une ambulance", callIntent);
 
             // Notification channel ID is ignored for Android 7.1.1
             // (API level 25) and lower.
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_directions_car_black_18dp)
+                    .setSmallIcon(R.drawable.ic_directions_runner_black_18p)
                     .setContentTitle(getString(R.string.ic_wearable_notification_title))
                     .setContentText(getString(R.string.ic_wearable_notification_description))
-                    .extend(wearableExtender);
+                    .extend(new NotificationCompat.WearableExtender()
+                            .addAction(continueAction)
+                            .addAction(finishAction)
+                            .addAction(callAction));
 
             // Get an instance of the NotificationManager service
             NotificationManagerCompat notificationManager =
@@ -149,12 +144,6 @@ public class NotificationActivity extends AppCompatActivity {
             notificationManager.notify(WEARABLE_NOTIFICATION_ID, notificationBuilder.build());
         });
     }
-
-    /* A IMPLEMENTER */
-
-    /*
-     *  Code fourni pour les PendingIntent
-     */
 
     /*
      *  Method called by system when a new Intent is received
@@ -191,6 +180,7 @@ public class NotificationActivity extends AppCompatActivity {
      *
      * @param requestCode The request code
      * @param message     The message
+     * @param action      The action we want to set the pending intent
      * @return The pending Intent
      */
     private PendingIntent createPendingIntent(int requestCode, String message, String action) {
@@ -205,18 +195,55 @@ public class NotificationActivity extends AppCompatActivity {
         return stackBuilder.getPendingIntent(requestCode, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    /**
+     * Method used to create a PendingIntent with the specified message
+     * The intent will start a new activity Instance or bring to front an existing one
+     * with a toast corresponding to the simple notification
+     * See parentActivityName and launchMode options in Manifest
+     * See https://developer.android.com/training/notify-user/navigation.html for TaskStackBuilder
+     *
+     * @param requestCode The request code
+     * @param message     The message
+     * @return The pending Intent
+     */
     private PendingIntent createPendingIntentSimple(int requestCode, String message) {
         return createPendingIntent(requestCode, message, Constants.MY_PENDING_INTENT_ACTION_SIMPLE);
     }
 
+    /**
+     * Method used to create a PendingIntent with the specified message
+     * The intent will start a new activity Instance or bring to front an existing one
+     * with a toast corresponding to the actions notification
+     * See parentActivityName and launchMode options in Manifest
+     * See https://developer.android.com/training/notify-user/navigation.html for TaskStackBuilder
+     *
+     * @param requestCode The request code
+     * @param message     The message
+     * @return The pending Intent
+     */
     private PendingIntent createPendingIntentActions(int requestCode, String message) {
         return createPendingIntent(requestCode, message, Constants.MY_PENDING_INTENT_ACTION_ACTIONS);
     }
 
+    /**
+     * Method used to create a PendingIntent with the specified message
+     * The intent will start a new activity Instance or bring to front an existing one
+     * with a toast corresponding to the Wearable notification
+     * See parentActivityName and launchMode options in Manifest
+     * See https://developer.android.com/training/notify-user/navigation.html for TaskStackBuilder
+     *
+     * @param requestCode The request code
+     * @param message     The message
+     * @return The pending Intent
+     */
     private PendingIntent createPendingIntentWearable(int requestCode, String message) {
         return createPendingIntent(requestCode, message, Constants.MY_PENDING_INTENT_ACTION_WEARABLE);
     }
 
+    /**
+     * Method used to create a Notification Channel,
+     * necessary since the Android 26+ when we use the notification
+     */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library

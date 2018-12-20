@@ -51,4 +51,18 @@
         android:thumbTint="@color/blue_900"
         app:tickMarkTint="@color/blue_900" />
 
+
+    <SeekBar
+        android:id="@+id/grey_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/blue_seekBar"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        android:max="255"
+        android:progress="194"
+        android:progressTint="@color/grey_900"
+        android:thumbTint="@color/grey_900"
+        app:tickMarkTint="@color/grey_900" />
+
 </RelativeLayout>

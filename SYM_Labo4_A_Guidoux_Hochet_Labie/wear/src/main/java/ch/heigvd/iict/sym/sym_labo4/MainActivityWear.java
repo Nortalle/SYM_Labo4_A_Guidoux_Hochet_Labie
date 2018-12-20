@@ -85,7 +85,6 @@ public class MainActivityWear extends WearableActivity implements
         Wearable.getDataClient(this).removeListener(this);
     }
 
-
     private void updateBackgroundColor() {
         if (isAmbient()) {
             mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
@@ -95,8 +94,6 @@ public class MainActivityWear extends WearableActivity implements
             int b = convertEndAngleToRGBComponent(blueSlider.getEndAngle());
             mContainerView.setBackgroundColor(Color.argb(255, r, g, b));
         }
-
-
     }
 
     @Override

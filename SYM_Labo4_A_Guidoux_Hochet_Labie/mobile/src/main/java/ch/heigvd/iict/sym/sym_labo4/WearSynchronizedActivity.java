@@ -1,17 +1,12 @@
 package ch.heigvd.iict.sym.sym_labo4;
 
-import android.app.Notification;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataClient;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
@@ -22,8 +17,6 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
-import java.util.concurrent.ExecutionException;
-
 import ch.heigvd.iict.sym.wearcommon.Constants;
 
 public class WearSynchronizedActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, DataClient.OnDataChangedListener {
@@ -33,6 +26,7 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
     private SeekBar redSlider = null;
     private SeekBar greenSlider = null;
     private SeekBar blueSlider = null;
+    private SeekBar greySlider = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +36,18 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
         redSlider = findViewById(R.id.red_seekBar);
         greenSlider = findViewById(R.id.green_seekBar);
         blueSlider = findViewById(R.id.blue_seekBar);
+        greySlider = findViewById(R.id.grey_seekBar);
 
         redSlider.setOnSeekBarChangeListener(this);
         greenSlider.setOnSeekBarChangeListener(this);
         blueSlider.setOnSeekBarChangeListener(this);
-
+        greySlider.setOnSeekBarChangeListener(this);
 
         updateBackgroundColor();
-        /* A IMPLEMENTER */
-
     }
-
-    /* A IMPLEMENTER */
-
-    /*
-     *  Code utilitaire fourni
-     */
 
     /**
      * Method used to update the background color of the activity
-     *
      */
     private void updateBackgroundColor() {
 
@@ -71,9 +57,6 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
 
         View rootView = findViewById(android.R.id.content);
         rootView.setBackgroundColor(Color.argb(255, r, g, b));
-
-
-
     }
 
     private void sendPayload() {
@@ -111,6 +94,15 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        if (seekBar.getId() == greySlider.getId()) {
+            int cursor = greySlider.getProgress();
+
+            redSlider.setProgress(cursor);
+            greenSlider.setProgress(cursor);
+            blueSlider.setProgress(cursor);
+        }
+
         updateBackgroundColor();
     }
 
@@ -121,7 +113,6 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
         sendPayload();
     }
 
@@ -150,9 +141,7 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
                     blueSlider.setProgress(b);
 
                     updateBackgroundColor();
-
                 }
-
             }
         }
     }
