@@ -48,9 +48,9 @@ public class NotificationActivity extends AppCompatActivity {
     private static final int WEARABLE_NOTIFICATION_ID_CONTINUE = 3452;
     private static final int WEARABLE_NOTIFICATION_ID_CALL = 3453;
 
-    private Button notificationBtnDisplaySimpleNotification;
-    private Button notificationBtnDisplayActionsNotification;
-    private Button notificationBtnDisplayWearableNotification;
+    private Button notificationBtnDisplaySimpleNotification = null;
+    private Button notificationBtnDisplayActionsNotification = null;
+    private Button notificationBtnDisplayWearableNotification = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
