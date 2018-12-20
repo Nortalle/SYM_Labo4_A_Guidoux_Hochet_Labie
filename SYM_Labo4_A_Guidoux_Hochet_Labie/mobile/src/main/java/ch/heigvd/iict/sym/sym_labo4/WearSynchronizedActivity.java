@@ -107,15 +107,12 @@ public class WearSynchronizedActivity extends AppCompatActivity implements SeekB
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
         //updateBackgroundColor();
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         updateBackgroundColor();
-
-
     }
 
     /*

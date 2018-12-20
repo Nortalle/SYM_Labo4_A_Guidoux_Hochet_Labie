@@ -146,7 +146,7 @@ public class MainActivityWear extends WearableActivity implements
      * @return The color component 0-255
      */
     private int convertEndAngleToRGBComponent(double endAngle) {
-        return (int) Math.round(255 * ((endAngle + ANGLE_OFFSET) % 360) / 360.0);
+        return (int) Math.round(256 * ((endAngle + ANGLE_OFFSET) % 360) / 360.0);
     }
 
     /**
@@ -157,7 +157,7 @@ public class MainActivityWear extends WearableActivity implements
      * @return The angle in degree 0-359
      */
     private double convertRGBValueToEndAngle(int colorComponent) {
-        return ((((double) colorComponent) / 255.0) * 360.0) - ANGLE_OFFSET;
+        return ((((double) colorComponent) / 256.0) * 360.0) - ANGLE_OFFSET;
     }
 
     @Override
